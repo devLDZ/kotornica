@@ -52,13 +52,14 @@ type private ServerContext =
     }
 
 let private startHg env repositoryPath =
-    let psi = new ProcessStartInfo()
-    psi.FileName <- env.HgPath
-    psi.CreateNoWindow <- true
-    psi.UseShellExecute <- false
-    psi.RedirectStandardError <- true
-    psi.RedirectStandardInput <- true
-    psi.RedirectStandardOutput <- true
+    let psi = new ProcessStartInfo(
+                FileName = env.HgPath,
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardError = true,
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true)
+
     psi.EnvironmentVariables.Add("HGENCODING", env.Encoding.WebName)
     psi.Arguments <-sprintf @"serve --cmdserver pipe --cwd %s --repository %s" repositoryPath repositoryPath
     Process.Start(psi)
