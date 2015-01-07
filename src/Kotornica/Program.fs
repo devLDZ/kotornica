@@ -9,5 +9,7 @@ let main argv =
     use srv = new HgServer(@"H:\Development\Projects\Kotornica\test_repo")
     printfn "INFO: %A" srv.Info
 
+    srv.Summary()
+
     Console.ReadLine() |> ignore
     0 // return an integer exit code
